@@ -7235,7 +7235,7 @@ hr {
   
 }
 
-/* Product Page */
+/* Product Page **/
 div#rc_container {
   margin-top: -40px;
   margin-bottom: 0px !important;
@@ -7247,7 +7247,7 @@ span#save_percent {
   padding: 5px !important;
   color: #018037 !important;
   font-size: 20px !important;
-  font-weight: bold !important;
+  font-weight: bold !important;   
 }
 
 form[action^="/cart/add"] [type=submit] {
