@@ -1,0 +1,48 @@
+<!-- variant -->
+<div product-selector="{{ variant.id }}" class="grid-view-item{% unless variant.available %} grid-view-item--sold-out{% endunless %} product-card">
+    <a class="grid-view-item__link grid-view-item__image-container full-width-link" href="{{ variant.url }}">
+      <span class="visually-hidden">{{product.title}} - {{ variant.title }}</span>
+    </a>
+  
+    {% capture img_id %}ProductCardImage-{{ section.id }}-{{ variant.id }}{% endcapture %}
+    {% capture wrapper_id %}ProductCardImageWrapper-{{ section.id }}-{{ variant.id }}{% endcapture %}
+    {%- assign img_url = variant.featured_image | img_url: '1x1' | replace: '_1x1.', '_{width}x.' -%}
+  
+    {% unless variant.featured_image == blank %}
+      {% include 'image-style' with image: variant.featured_image, width: max_height, height: max_height, small_style: true, wrapper_id: wrapper_id, img_id: img_id %}
+    {% endunless %}
+  
+    <div id="{{ wrapper_id }}" class="grid-view-item__image-wrapper product-card__image-wrapper js">
+      {%if variant.featured_image%}<div style="padding-top:{% unless variant.featured_image == blank %}{{ 1 | divided_by: variant.featured_image.aspect_ratio | times: 100}}%{% else %}100%{% endunless %};">
+       <a href=""><img id="{{ img_id }}"
+              class="grid-view-item__image lazyload"
+              src="{{ variant.featured_image | img_url: '300x300' }}"
+              data-src="{{ img_url }}"
+              data-widths="[180, 360]"
+              data-aspectratio="{{ variant.featured_image.aspect_ratio }}"
+              data-sizes="auto"
+                        alt="{{ variant.featured_image.alt }}">
+        </a>
+      </div>{%else%}
+         <img src="{{ 'placeholder.png' | asset_url }}">
+         {% endif %}
+    </div>
+  
+    <noscript>
+      {% capture image_size %}{{ max_height }}x{{ max_height }}{% endcapture %}
+      <img alt="{{ variant.featured_image.alt }}" class="grid-view-item__image" src="{{ variant.featured_image.src | img_url: image_size, scale: 2 }}" style="max-width: {{ max_height | times: variant.featured_image.aspect_ratio }}px;"/>
+    </noscript>
+  
+    <div class="h4 grid-view-item__title product-card__title" aria-hidden="true">{{product.title}} - {{ color }}</div>
+  
+    {% include 'product-price', variant: product %}
+    
+    <span class=" stamped-product-reviews-badge" data-product-sku="{{ variant.handle }}" data-id="{{ variant.id }}" style="display:block;">{{ product.metafields.stamped.badge }}</span>
+    <div class="col-colors">
+    {% for optionn in product.options %}{% if optionn == 'Color' %}{% assign index = forloop.index0 %}{% assign colorlistt = '' %}{% assign colorr = '' %}{% for variantt in product.variants %}{% capture colorr %}{{ variantt.options[index] }}{% endcapture %}
+        {% unless colorlistt contains colorr %}<img src="{% if variantt.image %}{{ variantt.image | img_url:'small' }}{% else %}{{ 'placeholder.png' | asset_url }}{% endif %}" alt="{{ colorr }}" width="16" height="16" />{% capture tempListt %}{{colorlistt | append: colorr | append: ' '}}{% endcapture %}{% assign colorlistt = tempListt %}{% endunless %}
+    {% endfor %}{% endif %}{% endfor %}
+    </div>
+  
+  </div>
+  

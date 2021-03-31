@@ -1,0 +1,23 @@
+{% comment %}
+  The contents of the lists-collections.liquid template can be found in /sections/lists-collections-template.liquid
+{% endcomment %}
+
+{% section 'list-collections-template' %}
+
+{% if collection.metafields.stamped.reviews_count and collection.metafields.stamped.reviews_count != "0" %} 
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Product",
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "bestRating": "5",
+    "worstRating": "1",
+    "reviewCount": "{{ collection.metafields.stamped.reviews_count }}",
+    "ratingValue": "{{ collection.metafields.stamped.reviews_average | round:2 }}",
+    "itemReviewed": "{{ collection.title | escape }}"
+  },
+  "name": "{{ collection.title | escape }}"
+}
+</script>
+{% endif %}
