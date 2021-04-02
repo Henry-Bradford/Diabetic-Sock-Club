@@ -283,7 +283,7 @@
 			setTimeout(() => {
 				var compare_price = parseFloat((document.getElementById("product_regular_price").textContent).trim().slice(1,6));
 				var sale_price = parseFloat((document.getElementById("product_sale_price").textContent).trim().slice(1,6));
-				var save_percent = (((compare_price - sale_price) / compare_price) * 100).toFixed(2);
+				var save_percent = (((compare_price - sale_price) / compare_price) * 100).toFixed(0);
 				document.getElementById("save_percent").innerHTML = save_percent + "% OFF";
 			}, 1300);		  
 		} 		 

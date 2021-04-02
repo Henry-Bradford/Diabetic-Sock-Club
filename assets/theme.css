@@ -7310,6 +7310,10 @@ div#shopify-section-16135604091da30fe7 {
 dl.price.price--listing.price--on-sale .price__compare dd {
   margin: 0%;
 }
+
+div#shopify-section-product-recommendations-cart {
+  margin-top: 50px;
+}
 @media only screen and (max-width: 943px) {
   dl.price.price--listing.price--on-sale .price__sale dd,
   dl.price.price--listing.price--on-sale .price__sale .price__compare {
